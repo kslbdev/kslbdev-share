@@ -16,7 +16,7 @@ export const InfiniteReferenceManyField = <
   RecordType extends RaRecord = RaRecord,
   ReferenceRecordType extends RaRecord = RaRecord,
 >(
-  props: ReferenceManyFieldProps<RecordType, ReferenceRecordType>
+  props: InfiniteReferenceManyFieldProps<RecordType, ReferenceRecordType>
 ) => {
   const {
     children,
@@ -72,12 +72,13 @@ export const InfiniteReferenceManyField = <
   );
 };
 
-export interface ReferenceManyFieldProps<
+export interface InfiniteReferenceManyFieldProps<
   RecordType extends Record<string, any> = Record<string, any>,
   ReferenceRecordType extends Record<string, any> = Record<string, any>,
 > extends Omit<FieldProps<RecordType>, 'source'>,
   UseInfiniteReferenceManyFieldControllerParams<RecordType, ReferenceRecordType> {
   children: ReactNode;
+  actions?: ReactElement | false;
 }
 
 const defaultFilter = {};

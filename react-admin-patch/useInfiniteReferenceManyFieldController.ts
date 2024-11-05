@@ -7,7 +7,6 @@ import lodashDebounce from 'lodash/debounce';
 import {
   useSafeSetState,
   removeEmpty,
-  useInfiniteGetList,
   useNotify,
   FilterPayload,
   Identifier,
@@ -19,6 +18,7 @@ import {
   useSortState,
   useResourceContext
 } from 'react-admin';
+import { useInfiniteGetMany } from './useInfiniteGetMany';
 
 export const useInfiniteReferenceManyFieldController = <
   RecordType extends RaRecord = RaRecord,
@@ -136,6 +136,8 @@ export const useInfiniteReferenceManyFieldController = <
     }
   });
 
+  const recordId = get(record, source);
+
   const {
     data,
     total,
@@ -150,8 +152,10 @@ export const useInfiniteReferenceManyFieldController = <
     isFetchingNextPage,
     fetchPreviousPage,
     isFetchingPreviousPage,
-  } = useInfiniteGetList<ReferenceRecordType>(
+  } = useInfiniteGetMany<ReferenceRecordType>(
     reference,
+    target,
+    recordId ?? '',
     {
       pagination: { page, perPage },
       sort,
